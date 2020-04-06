@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "988373949943",
+    "firebase_url": "https://moviecloudapps.firebaseio.com",
+    "project_id": "moviecloudapps",
+    "storage_bucket": "moviecloudapps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:988373949943:android:5fa25af6552402f54322f2",
+        "android_client_info": {
+          "package_name": "com.mfanir.mocapps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "988373949943-uqh7mhnr330nc58vrp3vbg9qhnk529ps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT_QcdLADiWBT0izE3BNKdd9MPTWhvKaw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "988373949943-uqh7mhnr330nc58vrp3vbg9qhnk529ps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
