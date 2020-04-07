@@ -96,7 +96,7 @@
         app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/btn_daftar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -125,7 +125,7 @@
         app:layout_constraintTop_toBottomOf="@+id/et_password" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/et_nama"
         android:layout_width="312dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -153,10 +153,10 @@
         android:text="@string/email_adrress"
         android:textColor="@color/colorWhite"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText3" />
+        app:layout_constraintTop_toBottomOf="@+id/et_nama" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/et_email"
         android:layout_width="312dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

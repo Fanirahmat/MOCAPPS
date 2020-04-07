@@ -34,4 +34,8 @@
     <string name="my_wallet">My Wallet</string>
     <string name="history">History</string>
     <string name="daftar_baru">Daftar Akun Baru</string>
+    <string name="daftar">Daftar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
