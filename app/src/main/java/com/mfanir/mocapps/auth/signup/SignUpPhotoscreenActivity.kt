@@ -20,6 +20,7 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.single.PermissionListener
 import com.mfanir.mocapps.home.HomeActivity
 import com.mfanir.mocapps.R
+import com.mfanir.mocapps.auth.signin.User
 import com.mfanir.mocapps.utils.Preferences
 import kotlinx.android.synthetic.main.activity_sign_up_photoscreen.*
 import java.util.*
@@ -85,6 +86,7 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
                         progressDialog.dismiss()
                         Toast.makeText(this@SignUpPhotoscreenActivity, "Uploaded", Toast.LENGTH_SHORT).show()
 
+                        //mengedit data user (menambahkan data url)
                         ref.downloadUrl.addOnSuccessListener {
                             preferences.setValues("url", it.toString())
 

@@ -8,24 +8,7 @@
     tools:context=".auth.signin.SignInActivity">
 
     <TextView
-        android:id="@+id/textView37"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="24dp"
-        android:drawablePadding="9dp"
-        android:fontFamily="@font/montserrat"
-        android:lineSpacingExtra="3sp"
-        android:text="Saldo e-wallet kamu tidak mencukupi untuk melakukan transaksi"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView35" />
-
-    <TextView
-        android:id="@+id/textView36"
+        android:id="@+id/tv_saldo"
         android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_marginTop="8dp"
@@ -34,12 +17,12 @@
         android:gravity="right|center_vertical"
         android:text="IDR 140.000"
         android:textColor="@color/colorPrimaryGreen"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
     <TextView
-        android:id="@+id/textView35"
+        android:id="@+id/tv_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -50,7 +33,7 @@
         android:gravity="center"
         android:text="@string/balance"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView34" />
 
@@ -59,112 +42,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/e_wallet"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView30" />
-
-    <TextView
-        android:id="@+id/textView33"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="right|center_vertical"
-        android:text="IDR 140.000"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-    <TextView
-        android:id="@+id/textView32"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="right|center_vertical"
-        android:text="IDR 70.000"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-    <TextView
-        android:id="@+id/textView31"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:fontFamily="@font/montserrat_bold"
-        android:gravity="right|center_vertical"
-        android:text="IDR 70.000"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-    <TextView
-        android:id="@+id/textView30"
-        android:layout_width="wrap_content"
-        android:layout_height="24dp"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="13dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="@string/total_bayar"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView29" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="13dp"
-        android:drawableLeft="@drawable/ic_seat"
-        android:drawablePadding="9dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="Seat 1 No. C2"
-        android:textColor="@color/colorWhite"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
-    <TextView
-        android:id="@+id/textView28"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:drawableLeft="@drawable/ic_seat"
-        android:drawablePadding="9dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:text="Seat 1 No. C1"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView27"
-        android:textSize="16sp" />
+        app:layout_constraintTop_toBottomOf="@+id/rc_checkout" />
 
     <TextView
         android:id="@+id/textView27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/montserrat"
         android:text="@string/items"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
@@ -178,7 +73,7 @@
         android:gravity="right|center_vertical"
         android:text="Golden Theater, Cinema 3"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
@@ -194,12 +89,12 @@
         android:gravity="center"
         android:text="@string/cinema"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/btn_tiket"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -210,9 +105,9 @@
         android:text="@string/bayar_sekarang"
         android:textColor="@color/colorBlueDark"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/btn_daftar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -232,7 +127,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/iv_back"
         android:layout_width="50dp"
         android:layout_height="35dp"
         android:layout_marginStart="24dp"
@@ -267,7 +162,7 @@
         android:fontFamily="@font/montserrat"
         android:text="When"
         android:textColor="@color/colorWhite"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -283,7 +178,7 @@
         android:gravity="center"
         android:text="@string/date_time"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
@@ -297,9 +192,20 @@
         android:gravity="right|center_vertical"
         android:text="12 Aug, 10 AM"
         android:textColor="@color/colorWhite"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_checkout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

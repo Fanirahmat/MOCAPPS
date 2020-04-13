@@ -1,26 +1,24 @@
-package com.mfanir.mocapps.home.dashboard
+package com.mfanir.mocapps.home
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.mfanir.mocapps.R
-import com.mfanir.mocapps.home.model.Film
+import com.mfanir.mocapps.checkout.model.Checkout
 
-class NowPlayingAdapter(private var data: List<Film>,
-                        private val listener: (Film) -> Unit)
-    : RecyclerView.Adapter<NowPlayingAdapter.LeagueViewHolder>() {
+class TiketAdapter(private var data: List<Checkout>,
+                   private val listener: (Checkout) -> Unit)
+    : RecyclerView.Adapter<TiketAdapter.LeagueViewHolder>() {
 
     lateinit var ContextAdapter : Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeagueViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         ContextAdapter = parent.context
-        val inflatedView: View = layoutInflater.inflate(R.layout.row_item_now_playing, parent, false)
+        val inflatedView: View = layoutInflater.inflate(R.layout.row_item_checkout_white, parent, false)
 
         return LeagueViewHolder(inflatedView)
     }
@@ -34,20 +32,12 @@ class NowPlayingAdapter(private var data: List<Film>,
     class LeagueViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val tvTitle: TextView = view.findViewById(R.id.tv_kursi)
-        private val tvGenre: TextView = view.findViewById(R.id.tv_genre)
-        private val tvRate: TextView = view.findViewById(R.id.tv_rate)
 
-        private val tvImage: ImageView = view.findViewById(R.id.iv_poster_image)
 
-        fun bindItem(data: Film, listener: (Film) -> Unit, context : Context, position : Int) {
+        fun bindItem(data: Checkout, listener: (Checkout) -> Unit, context : Context, position : Int) {
 
-            tvTitle.text = data.judul
-            tvGenre.text = data.genre
-            tvRate.text = data.rating
+            tvTitle.text = "Seat No. "+data.kursi
 
-            Glide.with(context)
-                .load(data.poster)
-                .into(tvImage);
 
             itemView.setOnClickListener {
                 listener(data)

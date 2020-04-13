@@ -8,7 +8,7 @@
     tools:context=".auth.signin.SignInActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/iv_back"
         android:layout_width="219dp"
         android:layout_height="68.86dp"
         android:layout_marginTop="62dp"
@@ -30,7 +30,7 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_back" />
 
     <TextView
         android:id="@+id/textView4"
