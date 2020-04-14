@@ -24,7 +24,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.noActionBar">
-        <activity android:name=".home.TiketActivity"></activity>
+        <activity android:name=".home.tiket.TiketActivity"></activity>
         <activity android:name=".checkout.CheckoutSuccessActivity" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".MyWalletActivity" />

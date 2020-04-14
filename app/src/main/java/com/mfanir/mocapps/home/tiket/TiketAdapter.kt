@@ -1,4 +1,4 @@
-package com.mfanir.mocapps.home
+package com.mfanir.mocapps.home.tiket
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -20,7 +20,9 @@ class TiketAdapter(private var data: List<Checkout>,
         ContextAdapter = parent.context
         val inflatedView: View = layoutInflater.inflate(R.layout.row_item_checkout_white, parent, false)
 
-        return LeagueViewHolder(inflatedView)
+        return LeagueViewHolder(
+            inflatedView
+        )
     }
 
     override fun onBindViewHolder(holder: LeagueViewHolder, position: Int) {

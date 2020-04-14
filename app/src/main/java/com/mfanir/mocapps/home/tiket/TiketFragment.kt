@@ -1,4 +1,4 @@
-package com.mfanir.mocapps.home
+package com.mfanir.mocapps.home.tiket
 
 import android.content.Intent
 import android.os.Bundle

@@ -78,7 +78,6 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
                 progressDialog.setTitle("Uploading...")
                 progressDialog.show()
 
-                Log.v("tamvan", "file uri upload 2"+filePath)
 
                 val ref = storageReference.child("images/" + UUID.randomUUID().toString())
                 ref.putFile(filePath)
@@ -86,20 +85,15 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
                         progressDialog.dismiss()
                         Toast.makeText(this@SignUpPhotoscreenActivity, "Uploaded", Toast.LENGTH_SHORT).show()
 
-                        //mengedit data user (menambahkan data url)
+                        //mengedit data user (menambahkan data url(foto))
                         ref.downloadUrl.addOnSuccessListener {
                             preferences.setValues("url", it.toString())
-
-                            Log.v("tamvan", "url"+it.toString())
 
                             finishAffinity()
                             val intent = Intent(this@SignUpPhotoscreenActivity,
                                 HomeActivity::class.java)
                             startActivity(intent)
                         }
-
-
-
                     }
                     .addOnFailureListener { e ->
                         progressDialog.dismiss()

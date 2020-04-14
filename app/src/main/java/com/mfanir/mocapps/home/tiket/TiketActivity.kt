@@ -1,4 +1,4 @@
-package com.mfanir.mocapps.home
+package com.mfanir.mocapps.home.tiket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,6 +19,10 @@ class TiketActivity : AppCompatActivity() {
 
         val data = intent.getParcelableExtra<Film>("data")
 
+        iv_back.setOnClickListener {
+            finish()
+        }
+
         tv_title.text = data.judul
         tv_genre.text = data.genre
         tv_rate.text = data.rating
@@ -31,7 +35,8 @@ class TiketActivity : AppCompatActivity() {
         dataList.add(Checkout("C1",""))
         dataList.add(Checkout("C2",""))
 
-        rc_checkout.adapter = TiketAdapter(dataList) {
-        }
+        rc_checkout.adapter =
+            TiketAdapter(dataList) {
+            }
     }
 }

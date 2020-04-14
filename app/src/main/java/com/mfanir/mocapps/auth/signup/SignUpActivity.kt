@@ -84,7 +84,7 @@ class SignUpActivity : AppCompatActivity() {
 
                     preferences.setValues("nama", data.nama.toString())
                     preferences.setValues("user", data.username.toString())
-                    preferences.setValues("saldo", "0")
+                    preferences.setValues("saldo", "")
                     preferences.setValues("url", "")
                     preferences.setValues("email", data.email.toString())
                     preferences.setValues("status", "1")
