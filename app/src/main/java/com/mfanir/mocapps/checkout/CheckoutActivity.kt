@@ -37,6 +37,9 @@ class CheckoutActivity : AppCompatActivity() {
         dataList.add(Checkout("Total Harus Dibayar", total.toString()))
 
         btn_tiket.setOnClickListener {
+
+            //saveTransaction(data)
+
             val intent = Intent(this@CheckoutActivity,
                 CheckoutSuccessActivity::class.java)
             startActivity(intent)

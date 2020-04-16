@@ -21,7 +21,7 @@
             android:drawablePadding="9dp"
             android:fontFamily="@font/montserrat"
             android:gravity="center"
-            android:text="IDR 280.000"
+            android:text="Rp0"
             android:textColor="@color/colorWhite"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"

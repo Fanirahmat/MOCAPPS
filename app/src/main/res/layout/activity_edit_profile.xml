@@ -51,8 +51,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:text="Mohammad Fani" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView8"
@@ -77,7 +76,6 @@
         android:ems="10"
         android:fontFamily="@font/montserrat_bold"
         android:inputType="textPassword"
-        android:text="..."
         android:textColor="@color/colorWhite"
         android:textColorHint="@color/colorBlueDark2"
         android:textSize="16sp"
@@ -140,8 +138,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:text="Mohammad Fani Rahmatulloh" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView7"
@@ -170,8 +167,7 @@
         android:textColorHint="@color/colorBlueDark2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        tools:text="@string/email" />
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <ImageView
         android:id="@+id/imageView9"

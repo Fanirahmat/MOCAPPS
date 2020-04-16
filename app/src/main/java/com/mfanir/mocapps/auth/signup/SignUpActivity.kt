@@ -90,7 +90,7 @@ class SignUpActivity : AppCompatActivity() {
                     preferences.setValues("status", "1")
 
                     val intent = Intent(this@SignUpActivity,
-                        SignUpPhotoscreenActivity::class.java).putExtra("nama", data.nama)
+                        SignUpPhotoscreenActivity::class.java).putExtra("username", data.username)
                     startActivity(intent)
 
                 }

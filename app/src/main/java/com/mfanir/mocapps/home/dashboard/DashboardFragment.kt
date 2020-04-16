@@ -50,12 +50,18 @@ class DashboardFragment : Fragment() {
 
         tv_nama.setText(preferences.getValues("nama"))
         //memanggil function currecy
-        currecy(preferences.getValues("saldo")!!.toDouble(), tv_saldo)
+        if (!preferences.getValues("saldo").equals("")){
+            currecy(preferences.getValues("saldo")!!.toDouble(), tv_saldo)
+        }
 
-        Glide.with(this)
-            .load(preferences.getValues("url"))
-            .apply(RequestOptions.circleCropTransform())
-            .into(iv_profile)
+        if (preferences.getValues("url") != null)
+        {
+            Glide.with(this)
+                .load(preferences.getValues("url"))
+                .apply(RequestOptions.circleCropTransform())
+                .into(iv_profile)
+        }
+
 
         Log.v("tamvan", "url "+preferences.getValues("url"))
 

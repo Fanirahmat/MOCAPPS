@@ -12,6 +12,8 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.karumi.dexter.PermissionToken
@@ -35,14 +37,17 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
     lateinit var storageReference: StorageReference
     lateinit var preferences: Preferences
 
+    private lateinit var mFirebaseDatabase: DatabaseReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_photoscreen)
 
+        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference("User")
         preferences = Preferences(this)
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        tv_hello.text = "Welcome, \n"+intent.getStringExtra("nama")
+        tv_hello.text = "Welcome, \n"+intent.getStringExtra("username")
 
         iv_add.setOnClickListener {
             if (statusAdd) {
@@ -52,11 +57,6 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
                 iv_profile.setImageResource(R.drawable.user_pic)
 
             } else {
-               // Dexter.withActivity(this)
-                //    .withPermission(android.Manifest.permission.CAMERA)
-                //    .withListener(this)
-                //    .check()
-
                 ImagePicker.with(this)
                     .cameraOnly()	//User can only capture image using Camera
                     .start()
@@ -86,7 +86,10 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
                         Toast.makeText(this@SignUpPhotoscreenActivity, "Uploaded", Toast.LENGTH_SHORT).show()
 
                         //mengedit data user (menambahkan data url(foto))
-                        ref.downloadUrl.addOnSuccessListener {
+                        ref.downloadUrl.addOnCompleteListener {
+                            //val user = User()
+                            //user.url = filePath.toString()
+                            //mFirebaseDatabase.child(preferences.getValues("username").toString()).setValue(user)
                             preferences.setValues("url", it.toString())
 
                             finishAffinity()
@@ -111,15 +114,10 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
     }
 
     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-        //To change body of created functions use File | Settings | File Templates.
-        //Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-          //  takePictureIntent.resolveActivity(packageManager)?.also {
-            //    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            //}
-        //}
 
         ImagePicker.with(this)
-            .cameraOnly()	//User can only capture image using Camera
+            .cameraOnly()
+            .compress(1024)//User can only capture image using Camera
             .start()
 
     }

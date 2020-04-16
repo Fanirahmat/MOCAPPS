@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mfanir.mocapps.EditProfileActivity
 import com.mfanir.mocapps.MyWalletActivity
 
 import com.mfanir.mocapps.R
+import com.mfanir.mocapps.auth.signin.User
 import com.mfanir.mocapps.utils.Preferences
 import kotlinx.android.synthetic.main.fragment_setting.*
 
@@ -32,6 +34,7 @@ class SettingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        //val data = intent.getParcelableExtra<User>("data")
         preferences = Preferences(context!!.applicationContext)
 
         tv_nama.text = preferences.getValues("nama")
@@ -44,6 +47,10 @@ class SettingFragment : Fragment() {
 
         tv_myWallet.setOnClickListener {
             startActivity(Intent(activity, MyWalletActivity::class.java))
+        }
+
+        tv_editProfil.setOnClickListener {
+            startActivity(Intent(activity, EditProfileActivity::class.java))
         }
     }
 
