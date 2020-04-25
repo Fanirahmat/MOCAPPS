@@ -18,20 +18,17 @@ import com.google.firebase.database.*
 import com.mfanir.mocapps.MovieDetailActivity
 import com.mfanir.mocapps.utils.Preferences
 import com.mfanir.mocapps.R
-import kotlinx.android.synthetic.main.activity_sign_up_photoscreen.*
-import kotlinx.android.synthetic.main.activity_sign_up_photoscreen.iv_profile
+import com.google.firebase.auth.FirebaseAuth
+import com.mfanir.mocapps.auth.signin.User
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.text.NumberFormat
 import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class DashboardFragment : Fragment() {
 
     private lateinit var preferences: Preferences
     lateinit var mDatabase: DatabaseReference
-
+    val user = FirebaseAuth.getInstance().currentUser
     private var dataList = ArrayList<Film>()
 
     override fun onCreateView(
@@ -48,22 +45,25 @@ class DashboardFragment : Fragment() {
         preferences = Preferences(activity!!.applicationContext)
         mDatabase = FirebaseDatabase.getInstance().getReference("Film")
 
-        tv_nama.setText(preferences.getValues("nama"))
-        //memanggil function currecy
-        if (!preferences.getValues("saldo").equals("")){
+        tv_nama.text = preferences.getValues("name")
+
+        if (!preferences.getValues("saldo").equals(""))
+        {
             currecy(preferences.getValues("saldo")!!.toDouble(), tv_saldo)
         }
 
-        if (preferences.getValues("url") != null)
+        if (user?.photoUrl == null)
         {
+            iv_profile.setImageResource(R.drawable.user_pic)
+        }
+        else
+        {
+
             Glide.with(this)
-                .load(preferences.getValues("url"))
+                .load(user?.photoUrl.toString())
                 .apply(RequestOptions.circleCropTransform())
                 .into(iv_profile)
         }
-
-
-        Log.v("tamvan", "url "+preferences.getValues("url"))
 
         //menampilkan data film dengan recycle view
         rv_now_playing.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
@@ -72,13 +72,13 @@ class DashboardFragment : Fragment() {
 
     }
 
+
     private fun getData() {
         mDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 dataList.clear()
-                for (getdataSnapshot in dataSnapshot.getChildren()) {
-
+                dataSnapshot.children.forEach { getdataSnapshot ->
                     val film = getdataSnapshot.getValue(Film::class.java!!)
                     dataList.add(film!!)
                 }
@@ -102,6 +102,8 @@ class DashboardFragment : Fragment() {
             }
         })
     }
+
+
 
     private fun currecy(harga:Double, textView: TextView) {
         val localeID = Locale("in", "ID")

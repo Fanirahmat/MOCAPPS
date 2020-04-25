@@ -41,6 +41,10 @@ class CommingSoonAdapter(private var data: List<Film>,
 
         fun bindItem(data: Film, listener: (Film) -> Unit, context : Context, position : Int) {
 
+           // if (data.status == "soon") {
+
+          //  }
+
             tvTitle.text = data.judul
             tvGenre.text = data.genre
             tvRate.text = data.rating

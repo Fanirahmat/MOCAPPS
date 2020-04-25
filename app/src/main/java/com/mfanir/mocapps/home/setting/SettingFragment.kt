@@ -1,4 +1,4 @@
-package com.mfanir.mocapps.home
+package com.mfanir.mocapps.home.setting
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.mfanir.mocapps.EditProfileActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.mfanir.mocapps.MyWalletActivity
 
 import com.mfanir.mocapps.R
-import com.mfanir.mocapps.auth.signin.User
 import com.mfanir.mocapps.utils.Preferences
 import kotlinx.android.synthetic.main.fragment_setting.*
 
@@ -22,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_setting.*
 class SettingFragment : Fragment() {
 
     lateinit var preferences: Preferences
+    val user = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,16 +34,25 @@ class SettingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //val data = intent.getParcelableExtra<User>("data")
         preferences = Preferences(context!!.applicationContext)
 
-        tv_nama.text = preferences.getValues("nama")
-        tv_email.text = preferences.getValues("email")
+        tv_nama.text = preferences.getValues("name")
+        tv_email.text = user?.email
 
-        Glide.with(this)
-            .load(preferences.getValues("url"))
-            .apply(RequestOptions.circleCropTransform())
-            .into(iv_profile)
+
+        if(user?.photoUrl == null)
+        {
+            iv_profile.setImageResource(R.drawable.user_pic)
+        }
+        else
+        {
+            Glide.with(this)
+                .load(user?.photoUrl.toString())
+                .apply(RequestOptions.circleCropTransform())
+                .into(iv_profile)
+        }
+
+
 
         tv_myWallet.setOnClickListener {
             startActivity(Intent(activity, MyWalletActivity::class.java))

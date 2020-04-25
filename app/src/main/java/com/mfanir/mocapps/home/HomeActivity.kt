@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.mfanir.mocapps.R
 import com.mfanir.mocapps.home.dashboard.DashboardFragment
+import com.mfanir.mocapps.home.setting.SettingFragment
 import com.mfanir.mocapps.home.tiket.TiketFragment
 import kotlinx.android.synthetic.main.activity_home.*
 

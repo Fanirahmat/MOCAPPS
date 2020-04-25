@@ -6,16 +6,13 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
@@ -29,25 +26,21 @@ import java.util.*
 
 class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
 
-    val REQUEST_IMAGE_CAPTURE = 1
+
     var statusAdd:Boolean = false
     lateinit var filePath: Uri
-
-    lateinit var storage: FirebaseStorage
-    lateinit var storageReference: StorageReference
     lateinit var preferences: Preferences
 
-    private lateinit var mFirebaseDatabase: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_photoscreen)
 
-        mFirebaseDatabase = FirebaseDatabase.getInstance().getReference("User")
+
         preferences = Preferences(this)
-        storage = FirebaseStorage.getInstance();
-        storageReference = storage.getReference();
-        tv_hello.text = "Welcome, \n"+intent.getStringExtra("username")
+        val filename = UUID.randomUUID().toString()
+        val ref = FirebaseStorage.getInstance().getReference("/images/$filename");
+        tv_hello.text = "Welcome, \n"+intent.getStringExtra("nama")
 
         iv_add.setOnClickListener {
             if (statusAdd) {
@@ -58,7 +51,8 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
 
             } else {
                 ImagePicker.with(this)
-                    .cameraOnly()	//User can only capture image using Camera
+                    .galleryOnly()
+                    .compress(1024)//User can only capture image using Camera
                     .start()
             }
         }
@@ -78,19 +72,31 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
                 progressDialog.setTitle("Uploading...")
                 progressDialog.show()
 
-
-                val ref = storageReference.child("images/" + UUID.randomUUID().toString())
                 ref.putFile(filePath)
                     .addOnSuccessListener {
                         progressDialog.dismiss()
                         Toast.makeText(this@SignUpPhotoscreenActivity, "Uploaded", Toast.LENGTH_SHORT).show()
 
                         //mengedit data user (menambahkan data url(foto))
-                        ref.downloadUrl.addOnCompleteListener {
-                            //val user = User()
-                            //user.url = filePath.toString()
-                            //mFirebaseDatabase.child(preferences.getValues("username").toString()).setValue(user)
+                        ref.downloadUrl.addOnSuccessListener {
+                            //val username = preferences.getValues("username")
+                            val ref = FirebaseDatabase.getInstance().getReference("User")
+                            val user = User()
+                           // user.url        = it.toString()
+                            user.email      = preferences.getValues("email")
+                            user.username   = preferences.getValues("username")
+                            //user.nama       = preferences.getValues("nama")
+                            //user.password   = preferences.getValues("password")
+                            //ref.child(user.id.toString()).setValue(user)
+
+                            //preferences.setValues("id", user.id.toString())
                             preferences.setValues("url", it.toString())
+                           // preferences.setValues("nama", user.nama.toString())
+                            preferences.setValues("username", user.username.toString())
+                            //preferences.setValues("password", user.password.toString())
+                            preferences.setValues("saldo", "")
+                            preferences.setValues("email", user.email.toString())
+                            preferences.setValues("status", "1")
 
                             finishAffinity()
                             val intent = Intent(this@SignUpPhotoscreenActivity,
@@ -112,6 +118,8 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
 
         }
     }
+
+
 
     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
 

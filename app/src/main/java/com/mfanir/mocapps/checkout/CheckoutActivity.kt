@@ -56,20 +56,21 @@ class CheckoutActivity : AppCompatActivity() {
 
         }
 
-        //if(preferences.getValues("saldo")!!.isNotEmpty()) {
+        if(preferences.getValues("saldo")!!.isNotEmpty()) {
             val localeID = Locale("in", "ID")
             val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
             tv_saldo.setText(formatRupiah.format(preferences.getValues("saldo")!!.toDouble()))
-           // btn_tiket.visibility = View.VISIBLE
-           // tv_balance.visibility = View.INVISIBLE
+            btn_tiket.visibility = View.VISIBLE
+            //tv_balance.visibility = View.INVISIBLE
 
-        //} else {
-           // tv_saldo.setText("Rp 0")
-           // btn_tiket.visibility = View.INVISIBLE
-          //  tv_balance.visibility = View.VISIBLE
-          //  tv_balance.text = "Saldo pada e-wallet kamu tidak mencukupi\n" +
-          //          "untuk melakukan transaksi"
-       // }
+        } else {
+            tv_saldo.setText("Rp 0")
+            btn_tiket.visibility = View.INVISIBLE
+            tv_balance.visibility = View.VISIBLE
+            tv_balance.text = "Saldo pada e-wallet kamu tidak mencukupi\n" +
+                    "untuk melakukan transaksi"
+
+        }
     }
 
    // private fun showNotif(datas: Film) {
