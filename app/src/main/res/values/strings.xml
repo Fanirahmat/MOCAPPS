@@ -41,4 +41,6 @@
     <string name="happy_watch">Happy Watching !!!</string>
     <string name="lihat_tiket">Lihat Tiket</string>
     <string name="home">Home</string>
+    <string name="top_up">Top Up Saldo</string>
+    <string name="custom_amount">Custom Amount</string>
 </resources>

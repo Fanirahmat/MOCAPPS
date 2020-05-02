@@ -146,7 +146,7 @@ class EditProfileActivity : AppCompatActivity() , PermissionListener {
                     userNew.name = eNama
                     userNew.email = user?.email
                     userNew.photoUrl = it.toString()
-                    userNew.saldo = ""
+                    userNew.saldo = preferences.getValues("saldo")!!.toString()
 
                     FirebaseAuth.getInstance().currentUser?.uid?.let { mFirebaseDatabase.child(it).setValue(userNew) }
 

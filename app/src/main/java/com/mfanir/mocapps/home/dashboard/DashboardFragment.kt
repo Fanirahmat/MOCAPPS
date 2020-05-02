@@ -1,9 +1,7 @@
 package com.mfanir.mocapps.home.dashboard
 
 import android.content.Intent
-import android.graphics.Movie
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +17,6 @@ import com.mfanir.mocapps.MovieDetailActivity
 import com.mfanir.mocapps.utils.Preferences
 import com.mfanir.mocapps.R
 import com.google.firebase.auth.FirebaseAuth
-import com.mfanir.mocapps.auth.signin.User
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import java.text.NumberFormat
 import java.util.*
@@ -27,8 +24,8 @@ import java.util.*
 class DashboardFragment : Fragment() {
 
     private lateinit var preferences: Preferences
-    lateinit var mDatabase: DatabaseReference
-    val user = FirebaseAuth.getInstance().currentUser
+    private lateinit var mDatabase: DatabaseReference
+    private val user = FirebaseAuth.getInstance().currentUser
     private var dataList = ArrayList<Film>()
 
     override fun onCreateView(
@@ -60,7 +57,7 @@ class DashboardFragment : Fragment() {
         {
 
             Glide.with(this)
-                .load(user?.photoUrl.toString())
+                .load(user.photoUrl.toString())
                 .apply(RequestOptions.circleCropTransform())
                 .into(iv_profile)
         }
@@ -79,17 +76,17 @@ class DashboardFragment : Fragment() {
 
                 dataList.clear()
                 dataSnapshot.children.forEach { getdataSnapshot ->
-                    val film = getdataSnapshot.getValue(Film::class.java!!)
+                    val film = getdataSnapshot.getValue(Film::class.java)
                     dataList.add(film!!)
                 }
 
                 if (dataList.isNotEmpty()) {
-                    rv_now_playing.adapter = NowPlayingAdapter(dataList) {
+                    this@DashboardFragment.rv_now_playing.adapter = NowPlayingAdapter(dataList) {
                         val intent = Intent(context, MovieDetailActivity::class.java).putExtra("data", it)
                         startActivity(intent)
                     }
 
-                    rv_comming_soon.adapter = CommingSoonAdapter(dataList) {
+                    this@DashboardFragment.rv_comming_soon.adapter = CommingSoonAdapter(dataList) {
                         val intent = Intent(context, MovieDetailActivity::class.java).putExtra("data", it)
                         startActivity(intent)
                     }
@@ -108,7 +105,7 @@ class DashboardFragment : Fragment() {
     private fun currecy(harga:Double, textView: TextView) {
         val localeID = Locale("in", "ID")
         val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
-        textView.setText(formatRupiah.format(harga))
+        textView.text = formatRupiah.format(harga)
 
     }
 

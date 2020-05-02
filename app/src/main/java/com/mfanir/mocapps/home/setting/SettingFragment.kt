@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.mfanir.mocapps.MyWalletActivity
+import com.mfanir.mocapps.wallet.MyWalletActivity
 
 import com.mfanir.mocapps.R
 import com.mfanir.mocapps.utils.Preferences
