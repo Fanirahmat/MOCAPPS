@@ -6,4 +6,4 @@ project apl pemesanan tiket bioskop. Di dalamnya terdapat fitur-fitur seperti de
 2. Kotlin
 3. Firebase Database
 
-note : Aplikasi belum final dan masih memerlukan perbaikan
+note : Transaksi dalam aplikasi belum selesai
