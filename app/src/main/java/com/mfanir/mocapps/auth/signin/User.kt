@@ -7,5 +7,6 @@ class User {
     var photoUrl: String ?=""
     var username: String ?=""
     var saldo: String ?=""
+    var image: String ?=""
 
 }

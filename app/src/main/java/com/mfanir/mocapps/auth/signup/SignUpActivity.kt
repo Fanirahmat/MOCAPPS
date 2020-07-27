@@ -29,9 +29,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var preferences: Preferences
 
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -73,6 +70,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
+    /*
     public override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -83,6 +81,8 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+     */
+
     private fun saveUser(iUsername: String, iPassword: String, iNama: String, iEmail: String)
     {
 
@@ -90,30 +90,32 @@ class SignUpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
 
-                    val currentUser = auth.currentUser
+                    val newCurrentUser = auth.currentUser?.uid
+                    val user = User()
+                    user.email = iEmail
+                    user.username = iUsername
+                    user.name = iNama
+                    user.photoUrl = ""
+                    user.saldo = ""
+                    user.image = ""
+
+                    mFirebaseDatabase.child(newCurrentUser.toString()).setValue(user)
+
+                    val intent = Intent(this@SignUpActivity, SignUpPhotoscreenActivity::class.java)
+                    intent.putExtra("nama", iNama)
+                    startActivity(intent)
+                    finish()
                     //send email verification
+                    /*
                     currentUser?.sendEmailVerification()
                         ?.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
 
-                                val user = User()
-                                user.email = iEmail
-                                user.username = iUsername
-                                user.name = iNama
-                                //user.password = iPassword
-                                user.photoUrl = ""
-                                user.saldo = ""
 
-
-                                FirebaseAuth.getInstance().currentUser?.uid?.let { mFirebaseDatabase.child(it).setValue(user) }
-                                Toast.makeText(this@SignUpActivity, "Registration complete, Check your email for verification", Toast.LENGTH_LONG)
-                                    .show()
-                                val intent = Intent(this@SignUpActivity,
-                                    SignInActivity::class.java)
-                                startActivity(intent)
-                                finish()
                             }
                         }
+
+                     */
 
                 } else {
                     // If sign in fails, display a message to the user.

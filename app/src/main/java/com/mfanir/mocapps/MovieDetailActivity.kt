@@ -37,6 +37,10 @@ class MovieDetailActivity : AppCompatActivity() {
             .load(data.poster)
             .into(iv_poster)
 
+        if (data.status == "comming soon") {
+            btn_pilih_bangku.text = "Pre Order"
+        }
+
         btn_pilih_bangku.setOnClickListener {
             val intent = Intent(this@MovieDetailActivity,
                 PilihBangkuActivity::class.java).putExtra("data", data)

@@ -12,45 +12,59 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.app.NotificationCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.mfanir.mocapps.R
+import com.mfanir.mocapps.auth.signin.User
 import com.mfanir.mocapps.checkout.adapter.CheckoutAdapter
 import com.mfanir.mocapps.checkout.model.Checkout
 import com.mfanir.mocapps.home.model.Film
 import com.mfanir.mocapps.home.tiket.TiketActivity
-import com.mfanir.mocapps.utils.Preferences
 import kotlinx.android.synthetic.main.activity_checkout.*
 import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class CheckoutActivity : AppCompatActivity() {
 
     private var dataList = ArrayList<Checkout>()
     private var total:Int = 0
-
-    private lateinit var preferences:Preferences
+    private lateinit var auth: FirebaseAuth
+    private lateinit var saldo: String
+    private lateinit var ref: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
 
-        preferences = Preferences(this)
-        dataList = intent.getSerializableExtra("data") as ArrayList<Checkout>
-        val data = intent.getParcelableExtra<Film>("datas")
+        auth = FirebaseAuth.getInstance()
+        dataList = intent.getSerializableExtra("dataCart") as ArrayList<Checkout>
+        val data = intent.getParcelableExtra<Film>("dataFilm")
 
-        for (a in dataList.indices){
-            total += dataList[a].harga!!.toInt()
-        }
+        ref = FirebaseDatabase.getInstance().reference
+        ref.child("User").child(auth.currentUser.toString()).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(data: DataSnapshot) {
+                if (data.exists())
+                {
+                    val user: User? = data.getValue(User::class.java)
+                   saldo = user?.saldo.toString()
+                }
+            }
 
-        dataList.add(Checkout("Total Harus Dibayar", total.toString()))
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+        })
+
+        tampilTotal(dataList)
 
         iv_back.setOnClickListener{
             finish()
         }
-
         btn_tiket.setOnClickListener {
 
-            //saveTransaction(data)
+            saveTransaction(data, dataList, ref)
 
             val intent = Intent(this@CheckoutActivity,
                 CheckoutSuccessActivity::class.java)
@@ -58,7 +72,6 @@ class CheckoutActivity : AppCompatActivity() {
 
             showNotif(data)
         }
-
         btn_daftar.setOnClickListener {
             finish()
         }
@@ -68,24 +81,35 @@ class CheckoutActivity : AppCompatActivity() {
 
         }
 
-        if(preferences.getValues("saldo")!!.isNotEmpty()) {
+        if(saldo.isNotEmpty() || saldo != "0")
+        {
             val localeID = Locale("in", "ID")
             val formatRupiah = NumberFormat.getCurrencyInstance(localeID)
-            tv_saldo.setText(formatRupiah.format(preferences.getValues("saldo")!!.toDouble()))
+            tv_saldo.setText(formatRupiah.format(saldo.toDouble()))
             btn_tiket.visibility = View.VISIBLE
             //tv_balance.visibility = View.INVISIBLE
-
         } else {
-            tv_saldo.setText("Rp 0")
+            tv_saldo.setText("IDR 0")
             btn_tiket.visibility = View.INVISIBLE
             tv_balance.visibility = View.VISIBLE
-            tv_balance.text = "Saldo pada e-wallet kamu tidak mencukupi\n" +
-                    "untuk melakukan transaksi"
-
+            tv_balance.text = "Saldo pada e-wallet kamu tidak mencukupi\n" + "untuk melakukan transaksi"
         }
     }
 
-   private fun showNotif(datas: Film)
+    private fun saveTransaction(data: Film?, dataList: ArrayList<Checkout>, ref: DatabaseReference) {
+        val map = HashMap<String, Any>()
+        map["username"] = ""
+    }
+
+    private fun tampilTotal(dataList: ArrayList<Checkout>) {
+        for (a in dataList.indices){
+            total += dataList[a].harga!!.toInt()
+        }
+        dataList.add(Checkout("Total Harus Dibayar", total.toString()))
+    }
+
+
+    private fun showNotif(datas: Film)
    {
        val NOTIFICATION_CHANNEL_ID = "channel_mocapps_notif"
        val context = this.applicationContext

@@ -43,6 +43,7 @@ class PilihBangkuActivity : AppCompatActivity() {
                 statusA1 = true
                 total +=1
                 belitiket(total)
+                //addToCart("A1", "30000")
 
                 val data = Checkout("A1", "30000")
                 dataList.add(data)
@@ -112,18 +113,28 @@ class PilihBangkuActivity : AppCompatActivity() {
             }
         }
 
+        //a5, .....
+
         btn_beli.setOnClickListener {
 
             val intent = Intent(
                 this@PilihBangkuActivity,
                 CheckoutActivity::class.java
-            ).putExtra("data", dataList).putExtra("datas", data)
+            ).putExtra("dataCart", dataList).putExtra("dataFilm", data)
             startActivity(intent)
         }
 
         iv_back.setOnClickListener{
             finish()
         }
+
+    }
+
+    private fun addToCart(kursi: String, harga: String){
+
+    }
+
+    private fun removeCart(kursi: String, harga: String){
 
     }
 

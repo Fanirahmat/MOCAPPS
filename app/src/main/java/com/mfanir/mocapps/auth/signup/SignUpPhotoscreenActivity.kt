@@ -11,6 +11,7 @@ import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.karumi.dexter.PermissionToken
@@ -23,6 +24,7 @@ import com.mfanir.mocapps.auth.signin.User
 import com.mfanir.mocapps.utils.Preferences
 import kotlinx.android.synthetic.main.activity_sign_up_photoscreen.*
 import java.util.*
+import kotlin.collections.HashMap
 
 class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
 
@@ -30,14 +32,15 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
     var statusAdd:Boolean = false
     lateinit var filePath: Uri
     lateinit var preferences: Preferences
+    private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up_photoscreen)
 
-
         preferences = Preferences(this)
+        auth = FirebaseAuth.getInstance()
         val filename = UUID.randomUUID().toString()
         val ref = FirebaseStorage.getInstance().getReference("/images/$filename");
         tv_hello.text = "Welcome, \n"+intent.getStringExtra("nama")
@@ -79,24 +82,13 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
 
                         //mengedit data user (menambahkan data url(foto))
                         ref.downloadUrl.addOnSuccessListener {
-                            //val username = preferences.getValues("username")
                             val ref = FirebaseDatabase.getInstance().getReference("User")
-                            val user = User()
-                           // user.url        = it.toString()
-                            user.email      = preferences.getValues("email")
-                            user.username   = preferences.getValues("username")
-                            //user.nama       = preferences.getValues("nama")
-                            //user.password   = preferences.getValues("password")
-                            //ref.child(user.id.toString()).setValue(user)
+                            val map = HashMap<String, Any>()
+                            map["image"] = it.toString()
+                            auth.currentUser?.uid?.let {
+                                    it1 -> ref.child(it1).updateChildren(map)
+                            }
 
-                            //preferences.setValues("id", user.id.toString())
-                            preferences.setValues("url", it.toString())
-                           // preferences.setValues("nama", user.nama.toString())
-                            preferences.setValues("username", user.username.toString())
-                            //preferences.setValues("password", user.password.toString())
-                            preferences.setValues("saldo", "")
-                            preferences.setValues("email", user.email.toString())
-                            preferences.setValues("status", "1")
 
                             finishAffinity()
                             val intent = Intent(this@SignUpPhotoscreenActivity,
@@ -168,5 +160,5 @@ class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
         }
     }
 
-    }
+}
 

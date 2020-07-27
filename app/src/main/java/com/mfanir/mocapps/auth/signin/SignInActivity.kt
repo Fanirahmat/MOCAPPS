@@ -23,13 +23,6 @@ class SignInActivity : AppCompatActivity() {
     lateinit var mDatabase:DatabaseReference
     lateinit var preferences: Preferences
 
-    public override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -37,10 +30,6 @@ class SignInActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         //inisialisasi firebase
         mDatabase = FirebaseDatabase.getInstance().getReference("User")
-        //inisialisasi preferences
-        preferences = Preferences(this)
-
-        preferences.setValues("onboarding", "1")
 
         //ketika tekan btn sign in
         btn_signin.setOnClickListener{
@@ -69,38 +58,6 @@ class SignInActivity : AppCompatActivity() {
 
     }
 
-    private fun updateUI(currentUser: FirebaseUser?) {
-        if (currentUser != null)
-        {
-            if (currentUser.isEmailVerified)
-            {
-                mDatabase.child(currentUser.uid).addValueEventListener(object : ValueEventListener {
-                    override fun onCancelled(error: DatabaseError) {
-                        Toast.makeText(this@SignInActivity, ""+error.message, Toast.LENGTH_LONG).show()
-                    }
-                    override fun onDataChange(dataSnapshot: DataSnapshot) {
-                        val user = dataSnapshot.getValue(User::class.java)
-                        preferences.setValues("saldo", user?.saldo.toString())
-                        preferences.setValues("photoUrl",  user?.photoUrl.toString())
-                        preferences.setValues("name", user?.name.toString())
-                        preferences.setValues("username", user?.username.toString())
-                        //preferences.setValues("password", user?.password.toString())
-
-                        finishAffinity()
-                    }
-
-                })
-                startActivity(Intent(this, HomeActivity::class.java))
-            }
-            else
-            {
-                Toast.makeText(baseContext, "Email is not verified.",
-                    Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    }
-
     private fun pushLogin(iEmail: String, iPassword: String) {
         auth.signInWithEmailAndPassword(iEmail, iPassword)
             .addOnCompleteListener(this) { task ->
@@ -115,6 +72,17 @@ class SignInActivity : AppCompatActivity() {
                 }
             }
     }
+
+    private fun updateUI(currentUser: FirebaseUser?) {
+        if (currentUser != null)
+        {
+            finishAffinity()
+            startActivity(Intent(this, HomeActivity::class.java))
+        }
+
+    }
+
+
 
 }
 
